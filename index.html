@@ -9,25 +9,54 @@
 </head>
 <body>
 
-    <div id="plocha" style="width: 300px; height: 300px; background-color: lightgray; border: 2px solid black;">
-    Hýbej tady myší!
+
+    <button id="generateButton" type="button" onclick="start()">Start</button>
+
+    <button id="finishButton" type="button" onclick="finish()">generate password</button>
+
+    <div>
+        <label>
+            <input type="checkbox" id="signs_abc" checked>
+            abc
+        </label>
     </div>
+
+    <div>
+        <label>
+            <input type="checkbox" id="signs_ABC" checked>
+            ABC
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" id="signs_nums" checked>
+            123
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" id="signs_spec" checked>
+            #$&
+        </label>
+    </div>
+
+    <p id="vypis"></p>
+
+    
 
     <div class="slidecontainer">
-        <input type="range" min="5" max="32" value="32" class="slider" id="slider1">
+        <input type="range" min="5" max="100" value="32" class="slider" id="slider1">
 
     </div>
-
-
-
-
-    <!-- Sem budeme vypisovat čísla -->
 
     <p id="length">length</p>
 
-    <p id="vypis">prd</p>
+    <div id="plocha" style="height: 70vh; margin: 0 1cm; background-color: lightgray; border: 2px solid black;">
+    Hýbej tady myší!
+    </div>
 
-    <button type="button" onclick="generatePassword()">Click Me!</button>
 
     <script src="script.js"></script>
 
