@@ -1,14 +1,16 @@
-console.log("Tohle je testovací výpis");
-
 let plocha = document.getElementById('plocha')
 let vypis = document.getElementById('vypis')
 
 let finishButton = document.getElementById('finishButton')
 
-let checkbox_abc = document.getElementById('signs_abc')
-let checkbox_ABC = document.getElementById('signs_ABC')
+let checkbox_abcd = document.getElementById('signs_abcd')
+let checkbox_ABCD = document.getElementById('signs_ABCD')
 let checkbox_nums = document.getElementById('signs_nums')
 let checkbox_spec = document.getElementById('signs_spec')
+
+var checkboxElems = document.querySelectorAll("input[type='checkbox']")
+var selections = {}
+
 
 let minulaX = 0
 let minulaY = 0
@@ -27,9 +29,9 @@ let table = ""
 
 var slider = document.getElementById("slider1");
 var output = document.getElementById("length");
-output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
+
+output.innerHTML = slider.value;
 slider.oninput = function() {
     output.innerHTML = this.value;
     pozadovanaDelka = this.value
@@ -37,8 +39,8 @@ slider.oninput = function() {
 
 const signs_abc = "abcdefghijklmnopqrstuvwxyz"
 const signs_ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const signs_numbers = "0123456789"
-const signs_special = ` !@#$%^&*()-_=+[]{}|\\;:'",.<>?/~`
+const signs_num = "0123456789"
+const signs_spe = ` !@#$%^&*()-_=+[]{}|\\;:'",.<>?/~`
 
 let limit
 
@@ -50,6 +52,17 @@ let pozadovanaDelka = slider.value;
 let count = pozadovanaDelka
 let souradkyACas = ""
 let finalCisla = []
+
+for (var i = 0; i < checkboxElems.length; i++) {
+    checkboxElems[i].addEventListener("click", checkboxCheck);
+}
+
+function checkboxCheck(e) {
+    if (!checkbox_abcd.checked && !checkbox_ABCD.checked && !checkbox_nums.checked && !checkbox_spec.checked) {
+        e.target.checked = true
+    }
+}
+
 
 plocha.addEventListener('mousemove', async function(udalost) {
 
@@ -74,12 +87,9 @@ plocha.addEventListener('mousemove', async function(udalost) {
 
 function start() {
 
-
     souradkyACas = ""
     pozadovanaDelka = slider.value
     count = pozadovanaDelka
-    console.log("pozDelka: "+pozadovanaDelka)
-    console.log("count: "+count)
 
     heslo = ""
     poleCisel = []
@@ -89,13 +99,7 @@ function start() {
     hmm += "🤔"
     vypis.innerText = hmm
 
-
-    console.log(table)
-    console.log(table.length)
     calculateLimit()
-    console.log("limit: " + limit)
-
-
     done = false
 }
 
@@ -112,27 +116,30 @@ function calculateLimit() {
 
 function makeTable() {
     table = ""
-    if (checkbox_abc.checked) {
+    if (checkbox_abcd.checked) {
         table += signs_abc
     }
-    if (checkbox_ABC.checked) {
+    if (checkbox_ABCD.checked) {
         table += signs_ABC
     }
     if (checkbox_nums.checked) {
-        table += signs_numbers
+        table += signs_num
     }
     if (checkbox_spec.checked) {
-        table += signs_special
+        table += signs_spe
     }
 }
 
 
 async function finish() {
-    if (count <= 0) {
-
+    
+    if (done) {
+        finishButton.innerText = `<- tady musis dement`
+        setTimeout(() => {
+            finishButton.innerText = "generate password"
+        }, 500)
+    } else if (count <= 0) {
         vypis.innerText = await udelejHeslo(souradkyACas, pozadovanaDelka)
-
-
         done = true
     } else {
         finishButton.innerText = `moc brzo retard`
@@ -141,6 +148,8 @@ async function finish() {
         }, 500)
     
     }
+    
+    
 }
 
 
@@ -167,8 +176,6 @@ async function udelejHeslo(souradkyACas, delka){
         }
     }
     
-    console.log("final cisla: " + finalCisla)
-    console.log("final cisla len: "+ finalCisla.length)
     
     var heslo = ""
     var pozice = 0
