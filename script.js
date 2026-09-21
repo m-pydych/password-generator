@@ -1,6 +1,7 @@
 let plocha = document.getElementById('plocha')
 let vypis = document.getElementById('vypis')
 
+
 let count = 0
 let cislo = ""
 
@@ -10,9 +11,21 @@ let minulaY = 0
 
 let ready = false
 
+
+var slider = document.getElementById("slider1");
+var output = document.getElementById("length");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    output.innerHTML = this.value;
+    pozadovanaDelka = this.value
+}
+
+
 const tabulka = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 let heslo = ""
-let pozadovanaDelka = 10;
+let pozadovanaDelka = slider.value;
 
 plocha.addEventListener('mousemove', async function(udalost) {
     
@@ -28,7 +41,7 @@ plocha.addEventListener('mousemove', async function(udalost) {
     
 
     if (rozdilX > 15 || rozdilY > 15) {
-        if (count < 100) {
+        if (count < 20) {
             count++
             
             cislo += `${poziceX}${poziceY}${cas}|`
@@ -50,6 +63,14 @@ plocha.addEventListener('mousemove', async function(udalost) {
     }
 
 })
+
+
+function generatePassword() {
+
+    vypis.innerText = "lool"
+
+
+}
 
 
 async function udelejHash(textovaEntropie) {
