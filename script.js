@@ -33,8 +33,15 @@ var output = document.getElementById("length");
 
 output.innerHTML = slider.value;
 slider.oninput = function() {
+    let podtrzitka = "_"
     output.innerHTML = this.value;
     pozadovanaDelka = this.value
+    for (let i = 0;i<this.value;i++) {
+        
+
+    }
+    vypis.innerText = 
+    
 }
 
 const signs_abc = "abcdefghijklmnopqrstuvwxyz"
@@ -153,7 +160,7 @@ async function finish() {
 }
 
 async function fancyVypis(text, entity) {
-    let doba = 400 //ms
+    let doba = 300 //ms
     let vypis = ""
     
     for (let i = 0;i<text.length;i++) {
@@ -180,7 +187,7 @@ async function udelejHeslo(souradkyACas, delka){
     loop1: for (let i = 1;;i++) {
         let poleCisel = await udelejHash(souradkyACas+"_"+i)
         for (let ii = 0;ii<=poleCisel.length;ii++) {
-            if (poleCisel[ii]<=limit) {
+            if (poleCisel[ii]<limit) {
                 finalCisla.push(poleCisel[ii])
             }
             if (finalCisla.length>=delka) {
