@@ -95,11 +95,11 @@ function start() {
     poleCisel = []
     finalCisla = []
     makeTable()
+    calculateLimit()
     
     hmm += "🤔"
     vypis.innerText = hmm
 
-    calculateLimit()
     done = false
 }
 
@@ -139,7 +139,7 @@ async function finish() {
             finishButton.innerText = "generate password"
         }, 500)
     } else if (count <= 0) {
-        vypis.innerText = await udelejHeslo(souradkyACas, pozadovanaDelka)
+        fancyVypis(await udelejHeslo(souradkyACas, pozadovanaDelka),vypis)
         done = true
     } else {
         finishButton.innerText = `moc brzo retard`
@@ -151,6 +151,18 @@ async function finish() {
     
     
 }
+
+function fancyVypis(text, entity) {
+    let doba = 1000 //ms
+    let vypis = ""
+    for (let i = 0;i<text.length;i++) {
+        setTimeout(vypis = vypis + text[i],(doba/text.length))
+        
+        entity.innerText = vypis
+    }
+}
+
+
 
 
 async function udelejHash(textovaEntropie) {
@@ -186,3 +198,5 @@ async function udelejHeslo(souradkyACas, delka){
     }
     return heslo
 }
+
+
