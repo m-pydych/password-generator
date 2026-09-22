@@ -152,12 +152,13 @@ async function finish() {
     
 }
 
-function fancyVypis(text, entity) {
-    let doba = 1000 //ms
+async function fancyVypis(text, entity) {
+    let doba = 400 //ms
     let vypis = ""
+    
     for (let i = 0;i<text.length;i++) {
-        setTimeout(vypis = vypis + text[i],(doba/text.length))
-        
+        await new Promise(resolve => setTimeout(resolve, doba/text.length));
+        vypis = vypis + text[i]
         entity.innerText = vypis
     }
 }
